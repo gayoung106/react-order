@@ -12,7 +12,7 @@ const ClothItem = (props) => {
         <div className={classes.price}>{price}</div>
       </div>
       <div>
-        <ClothItemFrom />
+        <ClothItemFrom id={props.id} />
       </div>
     </li>
   );
