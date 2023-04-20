@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 
@@ -13,14 +13,16 @@ const Cart = (props) => {
     </ul>
   );
   return (
-    <Modal>
+    <Modal onClose={props.onClose}>
       {cartItems}
       <div className={classes.total}>
         <span>결제금액</span>
         <span>35.62</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes["button--alt"]}>닫기</button>
+        <button className={classes["button--alt"]} onClick={props.onClose}>
+          닫기
+        </button>
         <button className={classes.button}>주문하기</button>
       </div>
     </Modal>
