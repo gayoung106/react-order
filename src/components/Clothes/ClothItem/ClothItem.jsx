@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./ClothItem.module.css";
 import ClothItemFrom from "./ClothItemFrom";
+import CartContext from "../../../store/cart-context";
 
 const ClothItem = (props) => {
+  const cartCtx = useContext(CartContext);
   const price = `${props.price}원`;
+  const addToCartHandler = (amount) => {
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: amount,
+      price: props.price,
+    });
+  };
   return (
     <li className={classes.cloth}>
       <div>
@@ -12,7 +22,7 @@ const ClothItem = (props) => {
         <div className={classes.price}>{price}</div>
       </div>
       <div>
-        <ClothItemFrom id={props.id} />
+        <ClothItemFrom onAddToCart={addToCartHandler} />
       </div>
     </li>
   );
