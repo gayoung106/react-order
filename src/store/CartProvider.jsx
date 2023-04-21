@@ -24,6 +24,7 @@ const CartProvider = (props) => {
     cartReducer,
     defaultCartState
   );
+
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: "ADD", item: item });
   };

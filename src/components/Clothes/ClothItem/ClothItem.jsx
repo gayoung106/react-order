@@ -5,7 +5,7 @@ import CartContext from "../../../store/cart-context";
 
 const ClothItem = (props) => {
   const cartCtx = useContext(CartContext);
-  const price = `${props.price}원`;
+  const price = `${props.price.toLocaleString()}원`;
   const addToCartHandler = (amount) => {
     cartCtx.addItem({
       id: props.id,
