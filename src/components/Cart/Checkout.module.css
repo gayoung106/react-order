@@ -30,35 +30,42 @@
 
 .actions button {
   font: inherit;
-  color: #5a1a01;
+  color: #082ca1;
   cursor: pointer;
   background-color: transparent;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 0.5rem 2rem;
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #ffe6dc;
+  background-color: #082ca1;
+  color: white;
 }
 
 .actions .submit {
-  border: 1px solid #5a1a01;
-  background-color: #5a1a01;
+  border: 1px solid #082ca1;
+  background-color: #082ca1;
   color: white;
 }
 
 .actions .submit:hover,
 .actions .submit:active {
-  background-color: #7a2706;
+  background-color: #082ca1;
 }
 
 .invalid label {
-  color: #ca3e51;
+  color: #082ca1;
 }
 
 .invalid input {
-  border-color: #aa0b20;
-  background-color: #ffeff1;
+  border-color: #082ca1;
+  background-color: #d5dbef;
+}
+
+.invalid p {
+  font-size: 12px;
+  text-align: left;
+  color: #7180b4;
 }
