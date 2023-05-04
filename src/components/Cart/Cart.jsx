@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -7,6 +7,8 @@ import Checkout from "./Checkout";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
   const cartCTX = useContext(CartContext);
 
   const totalAmount = `${cartCTX.totalAmount.toLocaleString()}원`;
@@ -22,15 +24,20 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const submitOrderHandler = (userData) => {
-    fetch("https://gazero-cart-default-rtdb.firebaseio.com/orders.json", {
+  const submitOrderHandler = async (userData) => {
+    setIsSubmitting(true);
+    await fetch("https://gazero-cart-default-rtdb.firebaseio.com/orders.json", {
       method: "POST",
       body: JSON.stringify({
         user: userData,
         orderedItems: cartCTX.items,
       }),
     });
+    setIsSubmitting(false);
+    setDidSubmit(true);
+    cartCTX.clearCart();
   };
+
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCTX.items.map((item) => (
@@ -59,8 +66,9 @@ const Cart = (props) => {
       )}
     </div>
   );
-  return (
-    <Modal onClose={props.onClose}>
+
+  const cartModalContent = (
+    <React.Fragment>
       {cartItems}
       <div className={classes.total}>
         <span>결제금액</span>
@@ -70,6 +78,29 @@ const Cart = (props) => {
         <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
       {!isCheckout && modalActions}
+    </React.Fragment>
+  );
+
+  const isSubmittingModalContent = (
+    <p className={classes.order}>주문서를 전송하는 중입니다.</p>
+  );
+
+  const didSubmittingModalContent = (
+    <React.Fragment>
+      <p className={classes.order}>주문이 성공적으로 완료되었습니다 !</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          닫기
+        </button>
+      </div>
+    </React.Fragment>
+  );
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && cartModalContent}
+      {isSubmitting && isSubmittingModalContent}
+      {!isSubmitting && didSubmit && didSubmittingModalContent}
     </Modal>
   );
 };
