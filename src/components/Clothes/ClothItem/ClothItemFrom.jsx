@@ -37,7 +37,7 @@ const ClothItemFrom = (props) => {
           defaultValue: "1",
         }}
       />
-      <button>+ 추가</button>
+      <button>담기</button>
       {!amountIsValid && (
         <p>수량은 최소 1개 이상 최대 5개 까지 주문 가능합니다.</p>
       )}

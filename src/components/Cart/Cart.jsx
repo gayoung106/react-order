@@ -20,6 +20,7 @@ const Cart = (props) => {
       {cartCTX.items.map((item) => (
         <CartItem
           key={item.id}
+          image={item.image}
           name={item.name}
           amount={item.amount}
           price={item.price}

@@ -12,11 +12,13 @@ const ClothItem = (props) => {
       name: props.name,
       amount: amount,
       price: props.price,
+      image: props.image,
     });
   };
   return (
     <li className={classes.cloth}>
       <div>
+        <img src={props.image} alt="/" />
         <h3>{props.name}</h3>
         <div className={classes.description}>{props.description}</div>
         <div className={classes.price}>{price}</div>

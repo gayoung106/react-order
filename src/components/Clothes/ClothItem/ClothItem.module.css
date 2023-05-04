@@ -1,18 +1,28 @@
 .cloth {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #ccc;
 }
 
+.cloth img {
+  width: 100%;
+}
 .cloth h3 {
+  text-align: center;
   margin: 0 0 0.25rem 0;
 }
 
+.description {
+  text-align: center;
+  font-size: 12px;
+}
 .price {
   margin-top: 0.25rem;
   font-weight: bold;
+  text-align: center;
   color: #082ca1;
   font-size: 1.25rem;
 }
