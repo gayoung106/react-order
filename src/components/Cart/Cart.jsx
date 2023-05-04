@@ -21,6 +21,16 @@ const Cart = (props) => {
   const orderHandler = () => {
     setIsCheckout(true);
   };
+
+  const submitOrderHandler = (userData) => {
+    fetch("https://gazero-cart-default-rtdb.firebaseio.com/orders.json", {
+      method: "POST",
+      body: JSON.stringify({
+        user: userData,
+        orderedItems: cartCTX.items,
+      }),
+    });
+  };
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCTX.items.map((item) => (
@@ -56,7 +66,9 @@ const Cart = (props) => {
         <span>결제금액</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onCancel={props.onClose} />}
+      {isCheckout && (
+        <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+      )}
       {!isCheckout && modalActions}
     </Modal>
   );
