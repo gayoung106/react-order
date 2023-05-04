@@ -5,12 +5,19 @@ import ClothItem from "./ClothItem/ClothItem";
 
 const AvailableClothes = () => {
   const [clothes, setClothes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchClothes = async () => {
       const response = await fetch(
         "https://gazero-cart-default-rtdb.firebaseio.com/clothes.json"
       ).then();
+
+      if (!response.ok) {
+        throw new Error(" 오류가 발생했습니다 ! ");
+      }
+
       const responseData = await response.json();
 
       const loadedClothes = [];
@@ -25,10 +32,30 @@ const AvailableClothes = () => {
         });
       }
       setClothes(loadedClothes);
+      setIsLoading(false);
     };
 
-    fetchClothes();
+    fetchClothes().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
+
+  if (isLoading) {
+    return (
+      <section className={classes.ClothesLoading}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.ClothesError}>
+        <p>{httpError}</p>
+      </section>
+    );
+  }
 
   const clothesList = clothes.map((cloth) => (
     <ClothItem
