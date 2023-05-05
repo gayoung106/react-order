@@ -8,15 +8,6 @@
   width: 100%;
 }
 
-@media (max-width: 1024px) {
-  .cloth {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
-    column-gap: 12px;
-    row-gap: 8px;
-  }
-}
-
 .cloth img {
   width: 100%;
 }
